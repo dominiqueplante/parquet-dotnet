@@ -18,7 +18,7 @@ namespace Parquet.Test
          Schema schema = inferrer.InferSchema();
 
          Assert.NotNull(schema);
-         Assert.Equal(2, schema.Length);
+         Assert.Equal(3, schema.Length);
 
          DataField id = (DataField)schema[0];
          Assert.Equal("Id", id.Name);
@@ -31,14 +31,25 @@ namespace Parquet.Test
          Assert.Equal(DataType.Int32, id.DataType);
          Assert.False(id.HasNulls);
          Assert.False(id.IsArray);
+
+         DataField nullableFloat = (DataField)schema[2];
+         Assert.Equal("NullableFloat", nullableFloat.Name);
+         Assert.Equal(DataType.Float, nullableFloat.DataType);
+         Assert.True(nullableFloat.HasNulls);
+         Assert.False(nullableFloat.IsArray);
       }
 
+      /// <summary>
+      /// Essentially all the test cases are this class' fields
+      /// </summary>
       class PocoClass
       {
          public int Id { get; set; }
 
          [ParquetColumn("AltId")]
          public int AnnotatedId { get; set; }
+
+         public float? NullableFloat { get; set; }
       }
    }
 }

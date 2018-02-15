@@ -33,7 +33,10 @@ namespace Parquet.Data.Inferring
 
       private Field GetField(PropertyInfo property)
       {
-         IDataTypeHandler handler = DataTypeFactory.Match(property.PropertyType);
+         Type pt = property.PropertyType;
+         if(pt.IsNullable()) pt = pt.GetNonNullable();
+
+         IDataTypeHandler handler = DataTypeFactory.Match(pt);
 
          if (handler == null) return null;
 
