@@ -53,5 +53,20 @@ namespace Parquet.Test
          }));
          Assert.Equal("{1;{1;[1=>one;2=>two;3=>three]}}", ds.WriteReadFirstRow());
       }
+
+      [Fact]
+      public void Map_elements_can_be_nullable()
+      {
+         var ds = new DataSet(
+            new DataField<int>("id"),
+            new MapField("nulls",
+               new DataField<string>("key"),
+               new DataField<string>("value")));
+
+         ds.Add(1, new Dictionary<string, string> { ["one"] = "one" });
+         ds.Add(2, null);
+
+         ds.WriteRead();
+      }
    }
 }

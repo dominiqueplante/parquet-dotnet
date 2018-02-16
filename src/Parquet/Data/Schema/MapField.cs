@@ -79,14 +79,20 @@ namespace Parquet.Data
 
       internal void AddElement(IList keys, IList values, IDictionary dictionary)
       {
+         //dictionary element can be null!
+
          IDataTypeHandler keyHandler = DataTypeFactory.Match(Key.DataType);
          IDataTypeHandler valueHandler = DataTypeFactory.Match(Value.DataType);
 
-         IList keysList = keyHandler.CreateEmptyList(Key.HasNulls, false, dictionary.Count);
-         IList valuesList = valueHandler.CreateEmptyList(Value.HasNulls, false, dictionary.Count);
+         int count = dictionary == null ? 0 : dictionary.Count;
+         IList keysList = keyHandler.CreateEmptyList(Key.HasNulls, false, count);
+         IList valuesList = valueHandler.CreateEmptyList(Value.HasNulls, false, count);
 
-         foreach (object v in dictionary.Keys) keysList.Add(v);
-         foreach (object v in dictionary.Values) valuesList.Add(v);
+         if (dictionary != null)
+         {
+            foreach (object v in dictionary.Keys) keysList.Add(v);
+            foreach (object v in dictionary.Values) valuesList.Add(v);
+         }
 
          keys.Add(keysList);
          values.Add(valuesList);
