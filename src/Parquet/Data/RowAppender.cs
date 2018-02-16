@@ -11,12 +11,15 @@ namespace Parquet.Data
          IReadOnlyList<Field> schema,
          Row row)
       {
-         DataSetValidator.ValidateRow(row, schema);
+         if (row != null)
+         {
+            DataSetValidator.ValidateRow(row, schema);
+         }
 
          for (int i = 0; i < schema.Count; i++)
          {
             Field field = schema[i];
-            object value = row[i];
+            object value = row == null ? null : row[i];
 
             if (field.SchemaType == SchemaType.Map)
             {
@@ -46,10 +49,10 @@ namespace Parquet.Data
 
       private static void AddStructure(Dictionary<string, IList> columns, StructField field, Row structRow)
       {
-         if (structRow == null)
+         /*if (structRow == null)
          {
             throw new ArgumentException($"expected {typeof(Row)} for field [{field}] value");
-         }
+         }*/
 
          Append(columns, field.Fields, structRow);
       }

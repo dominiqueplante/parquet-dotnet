@@ -67,9 +67,6 @@ namespace Parquet.Test
          ds.Add(2, null);
 
          ds.WriteRead();
-
-         ParquetWriter.WriteFile(ds, "c:\\tmp\\test.parquet");
-
       }
    }
 }

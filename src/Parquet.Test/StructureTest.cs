@@ -25,6 +25,24 @@ namespace Parquet.Test
          Assert.Equal("{Ivan;{Woods;postcode}}", ds1[0].ToString());
       }
 
+      [Fact]
+      public void Structure_can_have_null_elements()
+      {
+         var ds = new DataSet(
+            new DataField<string>("name"),
+            new StructField("address",
+               new DataField<string>("line1"),
+               new DataField<string>("postcode")
+            ));
+
+         ds.Add("Ivan", new Row("Woods", "postcode"));
+         ds.Add("John", null);
+         ds.Add("Ivan", new Row("Woods1", "postcode1"));
+
+         ds.WriteRead();
+
+         //ParquetWriter.WriteFile(ds, "c:\\tmp\\test.parquet");
+      }
 
       [Fact]
       public void Structure_nested_into_structure_write_read()
