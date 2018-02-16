@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Parquet.Attributes;
 using Parquet.Data;
-using Parquet.Data.Inferring;
+using Parquet.Serialization;
 using Xunit;
 
 namespace Parquet.Test

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Parquet.Attributes;
+using Parquet.Data;
 
-namespace Parquet.Data.Inferring
+namespace Parquet.Serialization
 {
    /// <summary>
    /// Infers a class schema using reflection
