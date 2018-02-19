@@ -13,9 +13,9 @@ namespace Parquet.Test
       [Fact]
       public void I_can_infer_different_types()
       {
-         var inferrer = new PocoInferrer(typeof(PocoClass));
+         var inferrer = new SchemaReflector(typeof(PocoClass));
 
-         Schema schema = inferrer.InferSchema();
+         Schema schema = inferrer.ReflectSchema();
 
          Assert.NotNull(schema);
          Assert.Equal(3, schema.Length);

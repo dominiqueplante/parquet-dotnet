@@ -11,11 +11,11 @@ namespace Parquet.Serialization
    /// <summary>
    /// Infers a class schema using reflection
    /// </summary>
-   public class PocoInferrer
+   public class SchemaReflector
    {
       private readonly TypeInfo _classType;
 
-      public PocoInferrer(Type classType)
+      public SchemaReflector(Type classType)
       {
          if (classType == null)
          {
@@ -25,7 +25,7 @@ namespace Parquet.Serialization
          _classType = classType.GetTypeInfo();
       }
 
-      public Schema InferSchema()
+      public Schema ReflectSchema()
       {
          IEnumerable<PropertyInfo> properties = _classType.DeclaredProperties;
 

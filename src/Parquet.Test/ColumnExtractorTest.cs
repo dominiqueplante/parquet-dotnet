@@ -18,7 +18,7 @@ namespace Parquet.Test
       [Fact]
       public void Extract_simple_columns()
       {
-         Schema schema = new PocoInferrer(typeof(SimpleColumns)).InferSchema();
+         Schema schema = new SchemaReflector(typeof(SimpleColumns)).ReflectSchema();
          var extractor = new ColumnExtractor();
          SimpleColumns[] classes = new[]
          {
