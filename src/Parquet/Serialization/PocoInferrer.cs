@@ -46,9 +46,11 @@ namespace Parquet.Serialization
          string name = columnAttr?.Name ?? property.Name;
          DataType type = handler.DataType;
 
-         return new DataField(name,
+         var r = new DataField(name,
             property.PropertyType   //use CLR type here as DF constructor will figure out nullability and other parameters
             );
+         r.ClrPropName = property.Name;
+         return r;
       }
    }
 }

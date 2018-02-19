@@ -96,7 +96,7 @@ namespace Parquet.Serialization.Values
       private void GenerateValueGetter(Type classType, ILGenerator il, Field f, int i)
       {
          //get the method which gets property value from class instance
-         MethodInfo getValueMethod = classType.GetTypeInfo().GetDeclaredProperty(f.Name).GetMethod;
+         MethodInfo getValueMethod = classType.GetTypeInfo().GetDeclaredProperty(f.ClrPropName ?? f.Name).GetMethod;
 
          //get property value first and store in local variable
          il.Emit(Ldarg_0);
