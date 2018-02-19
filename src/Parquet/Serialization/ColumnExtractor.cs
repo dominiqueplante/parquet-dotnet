@@ -13,7 +13,8 @@ namespace Parquet.Serialization
 
       public ColumnExtractor()
       {
-         _valuesExtractor = new ColumnValuesReflectionExtractor();
+         //_valuesExtractor = new ColumnValuesReflectionExtractor();
+         _valuesExtractor = new ColumnValuesILExtractor();
       }
 
       public void Extract<TClass>(IEnumerable<TClass> classInstances, Schema schema, List<IList> columns)

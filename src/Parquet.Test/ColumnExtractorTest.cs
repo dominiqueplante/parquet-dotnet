@@ -22,14 +22,14 @@ namespace Parquet.Test
          var extractor = new ColumnExtractor();
          SimpleColumns[] classes = new[]
          {
-            new SimpleColumns { Id = 1, Name = "First"}, new SimpleColumns { Id = 2, Name = "Second"}
+            new SimpleColumns { Id = 1, Name = "First"}, new SimpleColumns { Id = 2, Name = "Second"}, new SimpleColumns { Id = 3, Name = "Third" }
          };
 
          var result = new List<IList> { new List<int>(), new List<string>() };
 
          extractor.Extract(classes, schema, result);
-         Assert.Equal(new[] { 1, 2 }, result[0]);
-         Assert.Equal(new[] { "First", "Second" }, result[1]);
+         Assert.Equal(new[] { 1, 2, 3 }, result[0]);
+         Assert.Equal(new[] { "First", "Second", "Third" }, result[1]);
       }
    }
 }
