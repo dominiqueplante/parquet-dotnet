@@ -25,11 +25,16 @@ namespace Parquet.Serialization
          _classType = classType.GetTypeInfo();
       }
 
-      public Schema ReflectSchema()
+      public Schema Reflect()
       {
          IEnumerable<PropertyInfo> properties = _classType.DeclaredProperties;
 
          return new Schema(properties.Select(GetField).Where(p => p != null));
+      }
+
+      public static Schema Reflect<T>()
+      {
+         return new SchemaReflector(typeof(T)).Reflect();
       }
 
       private Field GetField(PropertyInfo property)

@@ -15,10 +15,17 @@ namespace Parquet.Test
          public string Name { get; set; }
       }
 
+      public class ArrayColumns
+      {
+         public int Id { get; set; }
+
+         public string[] Addresses { get; set; }
+      }
+
       [Fact]
       public void Extract_simple_columns()
       {
-         Schema schema = new SchemaReflector(typeof(SimpleColumns)).ReflectSchema();
+         Schema schema = new SchemaReflector(typeof(SimpleColumns)).Reflect();
          var extractor = new ColumnExtractor();
          SimpleColumns[] classes = new[]
          {
@@ -30,6 +37,32 @@ namespace Parquet.Test
          extractor.Extract(classes, schema, result);
          Assert.Equal(new[] { 1, 2, 3 }, result[0]);
          Assert.Equal(new[] { "First", "Second", "Third" }, result[1]);
+      }
+
+      [Fact]
+      public void Extract_array_columns()
+      {
+         Schema schema = SchemaReflector.Reflect<ArrayColumns>();
+         var extractor = new ColumnExtractor();
+         ArrayColumns[] ac = new[]
+         {
+            new ArrayColumns
+            {
+               Id = 1,
+               Addresses = new[] { "Fiddler", "On" }
+            },
+            new ArrayColumns
+            {
+               Id = 2,
+               Addresses = new[] { "The", "Roof" }
+            }
+         };
+
+         var result = new List<IList> { new List<int>(), new List<string[]>() };
+         extractor.Extract(ac, schema, result);
+
+         Assert.Equal(new[] { 1, 2 }, result[0]);
+         Assert.Equal(new[] { "Fiddler", "On", "The", "Roof" }, result[1]);
       }
    }
 }

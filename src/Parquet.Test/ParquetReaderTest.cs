@@ -1,13 +1,8 @@
-﻿using NetBox;
-using NetBox.IO;
+﻿using NetBox.IO;
 using Parquet.Data;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Text;
 using Xunit;
-using System.Linq;
 using NetBox.Extensions;
 using NetBox.Generator;
 

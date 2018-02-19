@@ -48,7 +48,7 @@ namespace Parquet.Serialization
          if(!typeToSchema.TryGetValue(classType, out Schema r))
          {
             var reflector = new SchemaReflector(classType);
-            r = reflector.ReflectSchema();
+            r = reflector.Reflect();
             typeToSchema[classType] = r;
          }
 

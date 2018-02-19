@@ -12,7 +12,7 @@ namespace Parquet.Test
       {
          var inferrer = new SchemaReflector(typeof(PocoClass));
 
-         Schema schema = inferrer.ReflectSchema();
+         Schema schema = inferrer.Reflect();
 
          Assert.NotNull(schema);
          Assert.Equal(3, schema.Length);
