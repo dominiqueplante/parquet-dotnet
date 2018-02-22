@@ -43,6 +43,7 @@ namespace Parquet.Test
       public void Extract_array_columns()
       {
          Schema schema = SchemaReflector.Reflect<ArrayColumns>();
+         Assert.Equal(2, schema.Length);
          var extractor = new ColumnExtractor();
          ArrayColumns[] ac = new[]
          {

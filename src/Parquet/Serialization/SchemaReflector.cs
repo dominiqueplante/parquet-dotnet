@@ -41,6 +41,7 @@ namespace Parquet.Serialization
       {
          Type pt = property.PropertyType;
          if(pt.IsNullable()) pt = pt.GetNonNullable();
+         if (pt.IsArray) pt = pt.GetElementType();
 
          IDataTypeHandler handler = DataTypeFactory.Match(pt);
 

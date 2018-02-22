@@ -5,8 +5,10 @@ using Xunit;
 
 namespace Parquet.Test
 {
-   public class PocoSchemaTest : TestBase
+   public class SchemaReflectorTest : TestBase
    {
+
+
       [Fact]
       public void I_can_infer_different_types()
       {
@@ -15,7 +17,7 @@ namespace Parquet.Test
          Schema schema = inferrer.Reflect();
 
          Assert.NotNull(schema);
-         Assert.Equal(3, schema.Length);
+         Assert.Equal(4, schema.Length);
 
          DataField id = (DataField)schema[0];
          Assert.Equal("Id", id.Name);
@@ -34,6 +36,13 @@ namespace Parquet.Test
          Assert.Equal(DataType.Float, nullableFloat.DataType);
          Assert.True(nullableFloat.HasNulls);
          Assert.False(nullableFloat.IsArray);
+
+         DataField intArray = (DataField)schema[3];
+         Assert.Equal("IntArray", intArray.Name);
+         Assert.Equal(DataType.Int32, intArray.DataType);
+         Assert.False(intArray.HasNulls);
+         Assert.True(intArray.IsArray);
+
       }
 
       /// <summary>
@@ -47,6 +56,8 @@ namespace Parquet.Test
          public int AnnotatedId { get; set; }
 
          public float? NullableFloat { get; set; }
+
+         public int[] IntArray { get; set; }
       }
    }
 }
