@@ -10,6 +10,9 @@ using static System.Reflection.Emit.OpCodes;
 
 namespace Parquet.Serialization.Values
 {
+   /// <summary>
+   /// Generates IL for extracting data from columns.
+   /// </summary>
    class ColumnValuesILExtractor : IColumnValuesExtractor
    {
       private delegate int ExtractColumns(object classInstance, List<IList> columns);
